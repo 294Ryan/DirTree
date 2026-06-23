@@ -48,7 +48,7 @@ def newLine():
     print(TextTheme.NONE + "")
     return "\n"
 
-def printTree(deepen, oPath):
+def printTree(oPath, prefix=""):
     """ ├ │ └ ─ """
     global fullTree
     fullPath = oPath.resolve()
@@ -63,10 +63,12 @@ def printTree(deepen, oPath):
     total = len(items)
     
     for idx, item in enumerate(items):
-        fullTree += p("│  " * deepen if deepen > 0 else "")
-        fullTree += p("└─" if idx == total - 1 else "├─")
+        isLast = idx == total - 1
+        fullTree += p(prefix)
+        fullTree += p("└─" if isLast else "├─")
+        childPrefix = prefix + ("   " if isLast else "│  ")
         if item.is_dir():
-            printTree(deepen + 1, item)
+            printTree(item, childPrefix)
         else:
             fullTree += p(item.name)
             fullTree += newLine()
@@ -86,7 +88,7 @@ def main():
     
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
     fullTree = ""
-    printTree(0, path)
+    printTree(path)
     showInfo("Directory scaned.")
     
     while True:
