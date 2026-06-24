@@ -51,12 +51,28 @@ def newLine():
 def printTree(oPath, prefix=""):
     """ ├ │ └ ─ """
     global fullTree
-    fullPath = oPath.resolve()
-    files = sorted([x for x in oPath.iterdir() if x.is_file()])
-    dirs = sorted([x for x in oPath.iterdir() if x.is_dir()])    
     
+    fullPath = oPath.resolve()
+
     fullTree += p(fullPath.name)
     fullTree += p(r"/")
+
+    # symlink check
+    if fullPath in visited:
+        fullTree += p("  [Skip this symlink]  ")
+        fullTree += newLine()
+        return
+    visited.add(fullPath)
+
+    # catch PermissionError
+    try:
+        files = sorted([x for x in oPath.iterdir() if x.is_file()])
+        dirs = sorted([x for x in oPath.iterdir() if x.is_dir()])
+    except OSError:
+        fullTree += p(f"  [Cannot read this directory. Permission denied.]  ")
+        fullTree += newLine()
+        return
+    
     fullTree += newLine()
     
     items = dirs + files
@@ -74,7 +90,7 @@ def printTree(oPath, prefix=""):
             fullTree += newLine()
     
 def main():
-    global fullTree
+    global fullTree, visited
     init()
     firstPage()
     
@@ -87,6 +103,7 @@ def main():
             showError(f'Path "{path.resolve()}" is not a directory.')
     
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
+    visited = set()
     fullTree = ""
     printTree(path)
     showInfo("Directory scaned.")
