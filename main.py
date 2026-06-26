@@ -1,5 +1,4 @@
 import sys
-import os.path
 import pyperclip as pc
 from pathlib import Path
 from colorama import init, Fore, Back
@@ -37,7 +36,7 @@ def firstPage():
 """)
 
 def getInput():
-    temp = input(TextTheme.INPUT + ">>")
+    temp = input(TextTheme.INPUT + ">> ").strip()
     return temp
 
 def p(arg):
@@ -69,7 +68,7 @@ def printTree(oPath, prefix=""):
         files = sorted([x for x in oPath.iterdir() if x.is_file()])
         dirs = sorted([x for x in oPath.iterdir() if x.is_dir()])
     except OSError:
-        fullTree += p(f"  [Cannot read this directory. Permission denied.]  ")
+        fullTree += p(f"  [Cannot read this directory. Permission denied]  ")
         fullTree += newLine()
         return
     
