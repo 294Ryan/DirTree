@@ -50,9 +50,9 @@ def newLine():
 def printTree(oPath, prefix=""):
     """ ├ │ └ ─ """
     global fullTree
-    
-    fullPath = oPath.resolve()
 
+    fullPath = oPath.resolve()
+    
     fullTree += p(fullPath.name)
     fullTree += p(r"/")
 
@@ -66,7 +66,13 @@ def printTree(oPath, prefix=""):
     # catch PermissionError
     try:
         files = sorted([x for x in oPath.iterdir() if x.is_file()])
+        if ignoreHiddenFile:
+            files = [x for x in files if not x.name.startswith(".")]
+        
         dirs = sorted([x for x in oPath.iterdir() if x.is_dir()])
+        if ignoreHiddenDir:
+            dirs = [x for x in dirs if not x.name.startswith(".")]
+    
     except OSError:
         fullTree += p(f"  [Cannot read this directory. Permission denied]  ")
         fullTree += newLine()
@@ -89,7 +95,7 @@ def printTree(oPath, prefix=""):
             fullTree += newLine()
     
 def main():
-    global fullTree, visited
+    global fullTree, visited, ignoreHiddenDir, ignoreHiddenFile
     init()
     firstPage()
     
@@ -101,6 +107,28 @@ def main():
         else:
             showError(f'Path "{path.resolve()}" is not a directory.')
     
+    ignoreHiddenDir = None
+    while True:
+        print(TextTheme.INPUT + 'Ignore hidden directories? (Directories starting with ".") (y/n)')
+        _input = getInput()
+        if _input.lower() in ["y", "n"]:
+            if _input.lower() == "y":
+                ignoreHiddenDir = True
+            else:
+                ignoreHiddenDir = False
+            break
+
+    ignoreHiddenFile = None
+    while True:
+        print(TextTheme.INPUT + 'Ignore hidden files? (Files starting with ".") (y/n)')
+        _input = getInput()
+        if _input.lower() in ["y", "n"]:
+            if _input.lower() == "y":
+                ignoreHiddenFile = True
+            else:
+                ignoreHiddenFile = False
+            break
+
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
     visited = set()
     fullTree = ""
@@ -110,7 +138,7 @@ def main():
     while True:
         print(TextTheme.INPUT + "\nWould you like to copy this directory tree to the clipboard? (y/n)?")
         _input = getInput()
-        if len(_input) == 1 and _input.lower() in ["y", "n"]:
+        if _input.lower() in ["y", "n"]:
             if _input.lower() == "y":
                 try:
                     pc.copy(fullTree)
