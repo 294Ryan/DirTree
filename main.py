@@ -47,19 +47,17 @@ def newLine():
     print(TextTheme.NONE + "")
     return "\n"
 
-def printTree(oPath, prefix=""):
+def printTree(oPath, treeNow, ignoreHiddenDir, ignoreHiddenFile, prefix="", visited = None):
     """ ├ │ └ ─ """
-    global fullTree
-
     fullPath = oPath.resolve()
     
-    fullTree += p(fullPath.name)
-    fullTree += p(r"/")
+    treeNow += p(fullPath.name)
+    treeNow += p(r"/")
 
     # symlink check
     if fullPath in visited:
-        fullTree += p("  [Skip this symlink]  ")
-        fullTree += newLine()
+        treeNow += p("  [Skip this symlink]  ")
+        treeNow += newLine()
         return
     visited.add(fullPath)
 
@@ -74,25 +72,25 @@ def printTree(oPath, prefix=""):
             dirs = [x for x in dirs if not x.name.startswith(".")]
     
     except OSError:
-        fullTree += p(f"  [Cannot read this directory. Permission denied]  ")
-        fullTree += newLine()
+        treeNow += p(f"  [Cannot read this directory. Permission denied]  ")
+        treeNow += newLine()
         return
     
-    fullTree += newLine()
+    treeNow += newLine()
     
     items = dirs + files
     total = len(items)
     
     for idx, item in enumerate(items):
         isLast = idx == total - 1
-        fullTree += p(prefix)
-        fullTree += p("└─" if isLast else "├─")
+        treeNow += p(prefix)
+        treeNow += p("└─" if isLast else "├─")
         childPrefix = prefix + ("   " if isLast else "│  ")
         if item.is_dir():
             printTree(item, childPrefix)
         else:
-            fullTree += p(item.name)
-            fullTree += newLine()
+            treeNow += p(item.name)
+            treeNow += newLine()
     
 def main():
     global fullTree, visited, ignoreHiddenDir, ignoreHiddenFile
@@ -132,7 +130,7 @@ def main():
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
     visited = set()
     fullTree = ""
-    printTree(path)
+    printTree(path, "", )
     showInfo("Directory scaned.")
     
     while True:
