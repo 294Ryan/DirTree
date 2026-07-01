@@ -47,8 +47,12 @@ def newLine():
     print(TextTheme.NONE + "")
     return "\n"
 
-def printTree(oPath, treeNow, ignoreHiddenDir, ignoreHiddenFile, prefix="", visited = None):
+def printTree(oPath, treeNow:str, ignoreHiddenDir:bool, ignoreHiddenFile:bool, prefix:str="", visited = None):
     """ ├ │ └ ─ """
+
+    if visited is None:
+        visited = set()
+
     fullPath = oPath.resolve()
     
     treeNow += p(fullPath.name)
@@ -58,23 +62,23 @@ def printTree(oPath, treeNow, ignoreHiddenDir, ignoreHiddenFile, prefix="", visi
     if fullPath in visited:
         treeNow += p("  [Skip this symlink]  ")
         treeNow += newLine()
-        return
+        return treeNow
     visited.add(fullPath)
 
     # catch PermissionError
     try:
-        files = sorted([x for x in oPath.iterdir() if x.is_file()])
+        entries = list(oPath.iterdir())
+        files = sorted(x for x in entries if x.is_file())
         if ignoreHiddenFile:
             files = [x for x in files if not x.name.startswith(".")]
-        
-        dirs = sorted([x for x in oPath.iterdir() if x.is_dir()])
+        dirs = sorted(x for x in entries if x.is_dir())
         if ignoreHiddenDir:
             dirs = [x for x in dirs if not x.name.startswith(".")]
     
     except OSError:
         treeNow += p(f"  [Cannot read this directory. Permission denied]  ")
         treeNow += newLine()
-        return
+        return treeNow
     
     treeNow += newLine()
     
@@ -87,13 +91,14 @@ def printTree(oPath, treeNow, ignoreHiddenDir, ignoreHiddenFile, prefix="", visi
         treeNow += p("└─" if isLast else "├─")
         childPrefix = prefix + ("   " if isLast else "│  ")
         if item.is_dir():
-            printTree(item, childPrefix)
+            treeNow = printTree(item, treeNow, ignoreHiddenDir, ignoreHiddenFile, childPrefix, visited)
         else:
             treeNow += p(item.name)
             treeNow += newLine()
     
+    return treeNow
+    
 def main():
-    global fullTree, visited, ignoreHiddenDir, ignoreHiddenFile
     init()
     firstPage()
     
@@ -128,9 +133,7 @@ def main():
             break
 
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
-    visited = set()
-    fullTree = ""
-    printTree(path, "", )
+    fullTree = printTree(path, "", ignoreHiddenDir, ignoreHiddenFile)
     showInfo("Directory scaned.")
     
     while True:
