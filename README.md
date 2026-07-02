@@ -1,6 +1,6 @@
-■[中文](#dirtree-目錄樹)    ■[English](#dirtree)
+■[中文](#directory-tree-目錄樹)    ■[English](#directory-tree)
 
-# ***DirTree 目錄樹***
+# ***Directory Tree 目錄樹***
 
 ## **目錄**
 - [專案概述](#專案概述)
@@ -23,7 +23,7 @@
 - **一鍵複製**：掃描結果可直接複製到剪貼簿
 
 ## **使用說明**
-請先下載本倉庫內容並將其解壓縮
+請先[下載本倉庫內容](https://github.com/294Ryan/DirTree/releases)並將其解壓縮
 - 啟動：執行 `.exe` 檔案，如 `DirTree_v1.0.0`，或直接執行 `python main.py`
 - 功能介紹：
 1. 輸入目錄路徑：
@@ -85,7 +85,7 @@ DirTree/
 
 ---
 
-# ***DirTree***
+# ***Directory Tree***
 
 ## **Table of Contents**
 - [Overview](#overview)
@@ -108,7 +108,7 @@ Scans a specified directory and outputs it as a tree structure. Hidden files/fol
 - **One-click copy**: copy scan results directly to clipboard
 
 ## **Usage**
-Download and extract this repository
+[Download and extract this repository](https://github.com/294Ryan/DirTree/releases)
 - **Run**: execute the `.exe` file, e.g. `DirTree_v1.0.0`, or run `python main.py` directly
 - **Workflow**:
 1. Enter a directory path:
