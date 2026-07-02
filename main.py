@@ -1,4 +1,5 @@
 import sys
+import os
 import pyperclip as pc
 from pathlib import Path
 from colorama import init, Fore, Back
@@ -99,6 +100,7 @@ def printTree(oPath, treeNow:str, ignoreHiddenDir:bool, ignoreHiddenFile:bool, p
     return treeNow
     
 def main():
+    os.system("cls" if os.name == "nt" else "clear")
     init()
     firstPage()
     
