@@ -39,7 +39,7 @@
 1. 請先閱讀以下開發須知並遵守所用條款。
 2. 請運行已下指令複製此倉庫至您的本地電腦：
 ```
-git clone 路徑.git
+git clone https://github.com/294Ryan/DirTree.git
 ```
 3. 使用語言：
    - Python 3.x
@@ -124,7 +124,7 @@ Download and extract this repository
 1. Read the notes below and follow the applicable terms first.
 2. Clone this repository:
 ```
-git clone <path>.git
+git clone https://github.com/294Ryan/DirTree.git
 ```
 3. Language:
    - Python 3.x
