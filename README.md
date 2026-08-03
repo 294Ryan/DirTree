@@ -1,4 +1,4 @@
-■[中文](#目錄樹工具)    ■[English](#director-tree)
+■[中文](#目錄樹工具)    ■[English](#dirtree)
 
 # ***目錄樹工具***
 
@@ -84,7 +84,7 @@ DirTree/
 
 ---
 
-# ***Directory Tree***
+# ***DirTree***
 
 ## **Table of Contents**
 - [Overview](#overview)
