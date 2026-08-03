@@ -2,3 +2,4 @@
 dist/
 tempCodeRunnerFile.py
 build/
+*.exe

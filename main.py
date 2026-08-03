@@ -34,10 +34,9 @@ r"""
 | | | | | '__|| || '__/ _ \/ _ \
 | |_| | | |   | || | |  __/  __/
 |____/|_|_|   |_||_|  \___|\___|
-
 """)
     print(TextTheme.PROMPT + 
-"""\n
+"""
 * Name     : DirTree
 * Function : A tool used to scan a specified directory and output the results as a tree structure.
 * Version  : v1.0.0
