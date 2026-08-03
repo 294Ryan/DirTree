@@ -1,6 +1,6 @@
-■[中文](#directory-tree-目錄樹)    ■[English](#directory-tree)
+■[中文](#目錄樹工具)    ■[English](#director-tree)
 
-# ***Directory Tree 目錄樹***
+# ***目錄樹工具***
 
 ## **目錄**
 - [專案概述](#專案概述)
@@ -17,23 +17,23 @@
 
 ## **重點特色**
 - **樹狀結構輸出**：以 `├─` `└─` 呈現目錄與檔案階層
-- **隱藏項目過濾**：可分別選擇是否忽略隱藏資料夾與隱藏檔案
+- **隱藏項目過濾**：可分別選擇是否忽略隱藏資料夾與隱藏檔案，**預設為忽略（Enter 即確認）**
 - **符號連結迴圈保護**：偵測到重複路徑會自動跳過，避免無限遞迴
 - **權限錯誤處理**：遇到無法讀取的目錄會標註提示，不會中斷程式
 - **一鍵複製**：掃描結果可直接複製到剪貼簿
 
 ## **使用說明**
-請先[下載本倉庫內容](https://github.com/294Ryan/DirTree/releases)並將其解壓縮
-- 啟動：執行 `.exe` 檔案，如 `DirTree_v1.0.0`，或直接執行 `python main.py`
+請先下載本倉庫內容並將其解壓縮
+- 啟動：執行 `.exe` 檔案，如 `main.exe`，或直接執行 `python main.py`
 - 功能介紹：
 1. 輸入目錄路徑：
     程式會驗證路徑是否為有效目錄，無效則重新輸入
 2. 選擇是否忽略隱藏資料夾／隱藏檔案：
-    依提示輸入 `y` 或 `n`
+    輸入 `y` 或 `n`；直接按 `Enter` 預設為 `Y`（忽略）
 3. 輸出目錄樹：
     掃描完成後於終端機顯示完整樹狀結構
 4. 複製到剪貼簿：
-    選擇 `y` 即可將結果複製，若裝置不支援剪貼簿存取會顯示警告
+    選擇 `y` 或按 `Enter` 即可複製，若裝置不支援剪貼簿存取會顯示警告
 
 ## **開發須知**
 1. 請先閱讀以下開發須知並遵守所用條款。
@@ -46,7 +46,7 @@ git clone https://github.com/294Ryan/DirTree.git
 4. 安裝必要工具：
   - Python模組：請運行以下指令
     ```
-    pip install pyperclip colorama
+    pip install -r requirements.txt
     ```
 5. 使用技術：請參見[使用技術](#使用技術)
 6. 專案結構：請參見[專案結構](#專案結構)
@@ -74,8 +74,7 @@ DirTree/
 ├─main.py
 ├─main.spec
 ├─README.md
-├─requirements.txt
-└─setup.bat
+└─requirements.txt
 ```
 
 ## **備註**
@@ -102,23 +101,23 @@ Scans a specified directory and outputs it as a tree structure. Hidden files/fol
 
 ## **Key Features**
 - **Tree structure output**: renders hierarchy with `├─` `└─` connectors
-- **Hidden item filtering**: choose separately whether to ignore hidden folders and hidden files
-- **Symlink loop protection**: auto-skips already-visited paths to avoid infinite recursion
-- **Permission error handling**: unreadable directories are flagged without crashing the program
+- **Hidden item filtering**: choose separately whether to ignore hidden folders and hidden files; **defaults to Yes (press Enter to confirm)**
+- **Symlink loop protection**: auto-skips already-visited paths to prevent infinite recursion
+- **Permission error handling**: unreadable directories are flagged and skipped without crashing the program
 - **One-click copy**: copy scan results directly to clipboard
 
 ## **Usage**
-[Download and extract this repository](https://github.com/294Ryan/DirTree/releases)
-- **Run**: execute the `.exe` file, e.g. `DirTree_v1.0.0`, or run `python main.py` directly
+Download and extract this repository
+- **Run**: execute the `.exe` file, e.g. `main.exe`, or run `python main.py` directly
 - **Workflow**:
 1. Enter a directory path:
     the program validates the path and re-prompts if it's invalid
 2. Choose whether to ignore hidden folders / hidden files:
-    answer `y` or `n` when prompted
+    enter `y` or `n`; pressing `Enter` defaults to `Y` (ignore)
 3. View the directory tree:
     the full tree structure prints to the terminal once scanning finishes
 4. Copy to clipboard:
-    choose `y` to copy the result; a warning appears if the device doesn't support clipboard access
+    choose `y` or press `Enter` to copy; a warning appears if the device doesn't support clipboard access
 
 ## **Development Notes**
 1. Read the notes below and follow the applicable terms first.
@@ -131,7 +130,7 @@ git clone https://github.com/294Ryan/DirTree.git
 4. Required tools:
   - Python modules: run
     ```
-    pip install pyperclip colorama
+    pip install -r requirements.txt
     ```
 5. Tech stack: see [Tech Stack](#tech-stack)
 6. Project structure: see [Project Structure](#project-structure)
@@ -159,8 +158,7 @@ DirTree/
 ├─main.py
 ├─main.spec
 ├─README.md
-├─requirements.txt
-└─setup.bat
+└─requirements.txt
 ```
 
 ## **Notes**
