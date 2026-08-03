@@ -27,17 +27,25 @@ def showError(msg):
     print(TextTheme.ERROR + printMsg)
 
 def firstPage():
-    print(TextTheme.APP_TITLE + "<< Directory Walker >>")
+    print(TextTheme.APP_TITLE + 
+r"""
+ ____  _     _____              
+|  _ \(_)_ _|_   _| __ ___  ___ 
+| | | | | '__|| || '__/ _ \/ _ \
+| |_| | | |   | || | |  __/  __/
+|____/|_|_|   |_||_|  \___|\___|
+
+""")
     print(TextTheme.PROMPT + 
 """\n
-- Product: Directory Walker
-- Function: A tool used to scan a specified directory and output the results as a tree structure.
-- Version: v1.0.0
-- Developer: 294Ryan
+* Name     : DirTree
+* Function : A tool used to scan a specified directory and output the results as a tree structure.
+* Version  : v1.0.0
+* Developer: 294Ryan
 """)
 
-def getInput():
-    temp = input(TextTheme.INPUT + ">> ").strip()
+def getInput(prompt = ""):
+    temp = input(TextTheme.INPUT + f"{prompt}\n>> ").strip()
     return temp
 
 def p(arg):
@@ -105,50 +113,49 @@ def main():
     firstPage()
     
     while True:
-        print(TextTheme.INPUT + "Enter a directory path")
-        path = Path(getInput())
+        path = Path(getInput("Enter a directory path"))
         if path.is_dir():
             break
         else:
             showError(f'Path "{path.resolve()}" is not a directory.')
     
     ignoreHiddenDir = None
-    while True:
-        print(TextTheme.INPUT + 'Ignore hidden directories? (Directories starting with ".") (y/n)')
-        _input = getInput()
-        if _input.lower() in ["y", "n"]:
-            if _input.lower() == "y":
-                ignoreHiddenDir = True
-            else:
-                ignoreHiddenDir = False
+    while ignoreHiddenDir == None:
+        _input = getInput('Ignore hidden directories? (Directories starting with ".") [Y/n]')
+        if _input.lower() == "y" or _input == "":
+            ignoreHiddenDir = True
             break
+        elif _input.lower() == "n":
+            ignoreHiddenDir = False
 
     ignoreHiddenFile = None
-    while True:
-        print(TextTheme.INPUT + 'Ignore hidden files? (Files starting with ".") (y/n)')
-        _input = getInput()
-        if _input.lower() in ["y", "n"]:
-            if _input.lower() == "y":
-                ignoreHiddenFile = True
-            else:
-                ignoreHiddenFile = False
+    while ignoreHiddenFile == None:
+        _input = getInput('Ignore hidden files? (Files starting with ".") [Y/n]')
+        if _input.lower() == "y" or _input == "":
+            ignoreHiddenFile = True
             break
+        elif _input.lower() == "n":
+            ignoreHiddenFile = False
+
 
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
     fullTree = printTree(path, "", ignoreHiddenDir, ignoreHiddenFile)
     showInfo("Directory scaned.")
-    
-    while True:
-        print(TextTheme.INPUT + "\nWould you like to copy this directory tree to the clipboard? (y/n)?")
-        _input = getInput()
-        if _input.lower() in ["y", "n"]:
-            if _input.lower() == "y":
-                try:
-                    pc.copy(fullTree)
-                    showInfo("Copied.")
-                except:
-                    showWarning("Copy failed. Your device may not support clipboard access. Please copy it manually.")
+
+
+    _input = None
+    while _input == None:
+        _input = getInput('Ignore hidden files? (Files starting with ".") [Y/n]')
+        if _input.lower() == "y"  or _input == "":
+            try:
+                pc.copy(fullTree)
+                showInfo("Copied.")
+            except:
+                showWarning("Copy failed. Your device may not support clipboard access. Please copy it manually.")
             break
+        elif _input.lower() == "n":
+            break
+
     
     input(TextTheme.PROMPT + "\nPress [Enter] to exit.")
     sys.exit()
