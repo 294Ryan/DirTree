@@ -79,8 +79,7 @@ DirTree/
 
 ## **備註**
 - 維護者: 294Ryan - [Github](https://github.com/294Ryan)
-- [!] 本專案供教育研究使用，使用時請尊重所有版權與權利擁有者。
-任何因不當使用造成的後果請自負。
+- <!> 敬請在本專案所用條款之允許範圍內進行使用。且任何因操作疏失或不當使用造成的後果請自負。
 
 ---
 
@@ -163,5 +162,5 @@ DirTree/
 
 ## **Notes**
 - Maintainer: 294Ryan - [Github](https://github.com/294Ryan)
-- [!] This project is for educational and research purposes only. Please respect all copyright and rights holders.
-Any consequences resulting from misuse are the user's own responsibility.
+- <!> Please use this product only within the scope permitted by the terms and conditions of this project. You are solely responsible for any consequences arising from operational errors or improper use.
+
