@@ -39,7 +39,7 @@ r"""
 """
 * Name     : DirTree
 * Function : A tool used to scan a specified directory and output the results as a tree structure.
-* Version  : v1.0.0
+* Version  : v1.1.2
 * Developer: 294Ryan
 """)
 
@@ -139,12 +139,12 @@ def main():
 
     print(TextTheme.PROMPT + "\nDirectory tree: \n")
     fullTree = printTree(path, "", ignoreHiddenDir, ignoreHiddenFile)
-    showInfo("Directory scaned.")
+    # showInfo("Directory scaned.")
 
 
     _input = None
     while _input == None:
-        _input = getInput('Ignore hidden files? (Files starting with ".") [Y/n]')
+        _input = getInput('Would you like to copy this directory tree to the clipboard? [Y/n]')
         if _input.lower() == "y"  or _input == "":
             try:
                 pc.copy(fullTree)
@@ -156,7 +156,7 @@ def main():
             break
 
     
-    input(TextTheme.PROMPT + "\nPress [Enter] to exit.")
+    input(TextTheme.PROMPT + "\nPress [Enter] to exit...")
     sys.exit()
     
 if __name__ == "__main__":
